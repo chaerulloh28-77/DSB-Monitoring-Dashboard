@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { ShieldCheck, Lock, User, Eye, EyeOff, ArrowRight, Activity, ThumbsUp } from 'lucide-react';
+import { Lock, User, Eye, EyeOff, ArrowRight, Activity } from 'lucide-react';
 import { storageService } from '../services/storageService';
 
 interface LoginViewProps {
@@ -8,13 +8,11 @@ interface LoginViewProps {
 }
 
 export const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess }) => {
-  // Requirement: Kosongkan tampilan username dan password by default
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [thumbClicked, setThumbClicked] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,15 +37,9 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess }) => {
         onLoginSuccess(loggedUser);
       } else {
         setIsLoading(false);
-        setErrorMsg('Username atau password tidak sesuai. Pastikan username: admindsb dan password: admindsb123');
+        setErrorMsg('Username atau password tidak sesuai.');
       }
     }, 450);
-  };
-
-  const handleFillDemo = () => {
-    setUsername('admindsb');
-    setPassword('admindsb123');
-    setErrorMsg('');
   };
 
   return (
@@ -172,47 +164,6 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess }) => {
             )}
           </button>
         </form>
-
-        {/* Demo Quick Fill Hint */}
-        <div className="mt-6 pt-5 border-t border-slate-800/80 flex flex-col items-center gap-2 text-center">
-          <div className="flex items-center gap-1.5 text-xs text-slate-400">
-            <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Kredensial Akses Pengawas:</span>
-          </div>
-          <div className="text-[11px] text-slate-400 font-mono bg-slate-950 px-3 py-1.5 rounded border border-slate-800 flex items-center gap-2">
-            <span>User: <strong className="text-slate-200">admindsb</strong></span>
-            <span>·</span>
-            <span>Pass: <strong className="text-slate-200">admindsb123</strong></span>
-          </div>
-
-          <button
-            type="button"
-            onClick={handleFillDemo}
-            className="text-xs text-cyan-400 hover:text-cyan-300 transition-colors underline underline-offset-4 cursor-pointer mt-1"
-          >
-            Klik untuk isi otomatis form
-          </button>
-
-          {/* Interactive Thumb Feature */}
-          <div className="mt-3 flex items-center justify-center">
-            <button
-              type="button"
-              onClick={() => {
-                setThumbClicked(true);
-                setTimeout(() => setThumbClicked(false), 800);
-              }}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-slate-800/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 transition-all cursor-pointer group active:scale-95"
-              title="Apresiasi Sistem DSB"
-            >
-              <ThumbsUp
-                className={`w-3.5 h-3.5 text-amber-400 transition-transform ${
-                  thumbClicked ? 'scale-130 rotate-[-15deg]' : 'group-hover:scale-115'
-                }`}
-              />
-              <span>{thumbClicked ? 'Mantap! Siap Masuk 👍' : 'DSB Monitoring Aktif'}</span>
-            </button>
-          </div>
-        </div>
       </motion.div>
     </div>
   );
