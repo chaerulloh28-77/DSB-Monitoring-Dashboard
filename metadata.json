@@ -1,0 +1,6 @@
+{
+  "name": "DSB Monitoring Dashboard",
+  "description": "Dashboard aplikasi monitoring infrastruktur DSB (Ducting Bersama / Relokasi Jaringan) real-time dengan pelaporan detail, manajemen pengguna, log aktivitas sistem, dan interaksi responsif.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
